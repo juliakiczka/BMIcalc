@@ -1,0 +1,2 @@
+# BMIcalc
+Project for studies 
