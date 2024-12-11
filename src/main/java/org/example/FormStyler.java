@@ -66,16 +66,18 @@ public class FormStyler {
     }
 
     public static void applyTableStyle(JTable table) {
-        table.setForeground(Color.DARK_GRAY);
+        Font defaultFont = UIManager.getFont("Label.font");
+        Font font = defaultFont.deriveFont(Font.BOLD);
+        table.setFont(font);
+        table.setForeground(Color.WHITE);
         table.setGridColor(Color.LIGHT_GRAY);
         table.setRowHeight(25);
-        table.setFont(new Font("Arial", Font.PLAIN, 14));
         table.setOpaque(false);
 
         JTableHeader header = table.getTableHeader();
+        header.setFont(font);
         header.setBackground(INITIAL_BACKGROUND_COLOR);
-        header.setForeground(Color.DARK_GRAY);
-        header.setFont(new Font("Arial", Font.BOLD, 14));
+        header.setForeground(Color.WHITE);
         animateBackgroundColor(header);
 
         Container parent = table.getParent();
