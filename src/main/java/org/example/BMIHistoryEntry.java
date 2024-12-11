@@ -1,14 +1,14 @@
 package org.example;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class BMIHistoryEntry {
     private double weight;
     private double height;
     private double bmi;
-    private Timestamp date;
+    private Date date;
 
-    public BMIHistoryEntry(double weight, double height, double bmi, Timestamp date) {
+    public BMIHistoryEntry(double weight, double height, double bmi, Date date) {
         this.weight = weight;
         this.height = height;
         this.bmi = bmi;
@@ -27,7 +27,7 @@ public class BMIHistoryEntry {
         return bmi;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 }

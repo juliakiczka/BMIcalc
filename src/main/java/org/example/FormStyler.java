@@ -70,7 +70,7 @@ public class FormStyler {
         Font font = defaultFont.deriveFont(Font.BOLD);
         table.setFont(font);
         table.setForeground(Color.WHITE);
-        table.setGridColor(Color.LIGHT_GRAY);
+        table.setGridColor(Color.WHITE);
         table.setRowHeight(25);
         table.setOpaque(false);
 

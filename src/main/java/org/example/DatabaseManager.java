@@ -114,7 +114,7 @@ public class DatabaseManager {
                 double height = rs.getDouble("height");
                 double bmi = rs.getDouble("bmi");
                 bmi = Math.round(bmi * 100.0) / 100.0;
-                Timestamp date = rs.getTimestamp("date");
+                Date date = rs.getDate("date");
 
                 BMIHistoryEntry entry = new BMIHistoryEntry(weight, height, bmi, date);
                 history.add(entry);
