@@ -31,6 +31,7 @@ public class BMIHistoryForm extends JFrame {
         }
 
         JTable historyTable = new JTable(data, columnNames);
+        FormStyler.applyTableStyle(historyTable);
 
         JScrollPane scrollPane = new JScrollPane(historyTable);
         add(scrollPane, BorderLayout.CENTER);
