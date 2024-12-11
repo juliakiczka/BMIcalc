@@ -1,28 +1,41 @@
 package org.example;
 
 import javax.swing.*;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class FormStyler {
 
     public static final Color INITIAL_BACKGROUND_COLOR = new Color(238, 174, 202, 100);
-    private static final Color TARGET_BACKGROUND_COLOR = new Color(148, 187, 233, 100);
+    public static final Color TARGET_BACKGROUND_COLOR = new Color(148, 187, 233, 100);
 
 
     public static void applyStyle(JFrame frame) {
         frame.setSize(500, 500);
         centerWindow(frame);
-        frame.setLayout(null);
-        frame.getContentPane().setBackground(INITIAL_BACKGROUND_COLOR);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        animateBackgroundColor(frame);
-    }
+        frame.setLayout(new BorderLayout());
 
-    public static void applyColor(JTable frame) {
-//        frame.setBackground(INITIAL_BACKGROUND_COLOR);
-//        animateBackgroundColor(frame);
+        JComponent contentPane = (JComponent) frame.getContentPane();
+        contentPane.setBackground(INITIAL_BACKGROUND_COLOR);
+        contentPane.setOpaque(true);
+
+        animateBackgroundColor(contentPane);
+
+        for (Component component : contentPane.getComponents()) {
+            if (component instanceof JTable) {
+                JTable table = (JTable) component;
+                applyTableStyle(table);
+            } else if (component instanceof JScrollPane) {
+                JScrollPane scrollPane = (JScrollPane) component;
+                scrollPane.getViewport().setBackground(INITIAL_BACKGROUND_COLOR);
+                scrollPane.setBackground(INITIAL_BACKGROUND_COLOR);
+                animateBackgroundColor(scrollPane);
+            } else if (component instanceof JComponent) {
+                component.setBackground(INITIAL_BACKGROUND_COLOR);
+                animateBackgroundColor((JComponent) component);
+            }
+        }
     }
 
     public static void styleButton(JButton button) {
@@ -52,6 +65,36 @@ public class FormStyler {
         gbc.fill = fill;
     }
 
+    public static void applyTableStyle(JTable table) {
+        table.setForeground(Color.DARK_GRAY);
+        table.setGridColor(Color.LIGHT_GRAY);
+        table.setRowHeight(25);
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.setOpaque(false);
+
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(INITIAL_BACKGROUND_COLOR);
+        header.setForeground(Color.DARK_GRAY);
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+        animateBackgroundColor(header);
+
+        Container parent = table.getParent();
+        if (parent instanceof JViewport) {
+            JViewport viewport = (JViewport) parent;
+            viewport.setOpaque(false);
+            viewport.setBackground(INITIAL_BACKGROUND_COLOR);
+
+            JScrollPane scrollPane = (JScrollPane) viewport.getParent();
+            if (scrollPane != null) {
+                scrollPane.setOpaque(false);
+                scrollPane.getViewport().setOpaque(false);
+                scrollPane.setBackground(INITIAL_BACKGROUND_COLOR);
+                animateBackgroundColor(scrollPane);
+            }
+        }
+        animateBackgroundColor(table);
+    }
+
     private static void centerWindow(JFrame frame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - frame.getWidth()) / 2;
@@ -59,7 +102,7 @@ public class FormStyler {
         frame.setLocation(x, y);
     }
 
-    private static void animateBackgroundColor(JFrame frame) {
+    private static void animateBackgroundColor(JComponent component) {
         Timer timer = new Timer(10, new AbstractAction() {
             private float progress = 0.0f;
             private Color initialColor = INITIAL_BACKGROUND_COLOR;
@@ -71,7 +114,7 @@ public class FormStyler {
                 int green = (int) (initialColor.getGreen() + (targetColor.getGreen() - initialColor.getGreen()) * progress);
                 int blue = (int) (initialColor.getBlue() + (targetColor.getBlue() - initialColor.getBlue()) * progress);
 
-                frame.getContentPane().setBackground(new Color(red, green, blue));
+                component.setBackground(new Color(red, green, blue));
                 progress += 0.01f;
 
                 if (progress >= 1.0f) {
@@ -80,6 +123,7 @@ public class FormStyler {
                     initialColor = targetColor;
                     targetColor = temp;
                 }
+                component.repaint();
             }
         });
         timer.start();
