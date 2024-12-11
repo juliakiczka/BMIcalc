@@ -36,12 +36,18 @@ public class BMIHistoryForm extends JFrame {
         JScrollPane scrollPane = new JScrollPane(historyTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        JButton closeButton = new JButton("Zamknij");
-        FormStyler.styleButton(closeButton);
-        closeButton.addActionListener(e -> dispose());
-        add(closeButton, BorderLayout.SOUTH);
+        JButton backButton = new JButton("Powrót");
+        FormStyler.styleButton(backButton);
+        backButton.addActionListener(e -> goBackToBMIForm());
+        add(backButton, BorderLayout.SOUTH);
 
         setSize(500, 400);
         setLocationRelativeTo(null);
+    }
+
+    private void goBackToBMIForm() {
+        BMIForm bmiForm = new BMIForm(userEmail);
+        bmiForm.setVisible(true);
+        dispose();
     }
 }

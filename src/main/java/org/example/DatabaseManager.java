@@ -102,7 +102,7 @@ public class DatabaseManager {
     }
 
     public static List<BMIHistoryEntry> getBMIHistory(String email) {
-        List<BMIHistoryEntry> history = new ArrayList<>();
+        List<BMIHistoryEntry> history = new ArrayList<>(); // Using java.util.List
         String query = "SELECT weight, height, bmi, date FROM bmi_results WHERE email = ? ORDER BY date DESC";
 
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
