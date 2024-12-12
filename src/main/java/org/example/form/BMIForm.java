@@ -25,7 +25,7 @@ public class BMIForm extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel welcomeLabel = new JLabel("Witaj, " + email);
+        JLabel welcomeLabel = new JLabel("Witaj, " + email + "! Miło Cię widzieć.");
         FormStyler.arrangeComponent(gbc, 0, 0, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
 
         Font defaultFont = welcomeLabel.getFont();

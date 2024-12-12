@@ -10,6 +10,7 @@ public class LoginForm extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton, registerButton;
+    private JLabel welcomeLabel;
 
     public LoginForm() {
         setTitle("Logowanie");
@@ -18,32 +19,61 @@ public class LoginForm extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        welcomeLabel = new JLabel("Kalkulator BMI");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        welcomeLabel.setForeground(Color.WHITE);
+
+        Font defaultFont = welcomeLabel.getFont();
+        welcomeLabel.setFont(defaultFont.deriveFont(Font.BOLD, 30));
+
+        add(welcomeLabel, gbc);
 
         JLabel emailLabel = new JLabel("Nazwa użytkownika:");
-        FormStyler.arrangeComponent(gbc, 0, 0, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST;
         FormStyler.styleLabel(emailLabel);
         add(emailLabel, gbc);
 
         emailField = new JTextField(20);
-        FormStyler.arrangeComponent(gbc, 1, 0, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         add(emailField, gbc);
 
         JLabel passwordLabel = new JLabel("Hasło:");
-        FormStyler.arrangeComponent(gbc, 0, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.EAST;
         FormStyler.styleLabel(passwordLabel);
         add(passwordLabel, gbc);
 
         passwordField = new JPasswordField(20);
-        FormStyler.arrangeComponent(gbc, 1, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
         add(passwordField, gbc);
 
         loginButton = new JButton("Zaloguj");
-        FormStyler.arrangeComponent(gbc, 0, 2, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         FormStyler.styleButton(loginButton);
         add(loginButton, gbc);
 
         registerButton = new JButton("Rejestracja");
-        FormStyler.arrangeComponent(gbc, 0, 3, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         FormStyler.styleButton(registerButton);
         add(registerButton, gbc);
 
