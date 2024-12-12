@@ -1,12 +1,12 @@
 package org.example.form;
 
-import org.example.DatabaseManager;
-import org.example.FormStyler;
+import org.example.form.common.DatabaseManager;
+import org.example.form.common.BaseForm;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class BMIForm extends JFrame {
+public class BMIForm extends BaseForm {
     private JTextField weightField;
     private JTextField heightField;
     private JButton calculateButton;
@@ -15,10 +15,9 @@ public class BMIForm extends JFrame {
     private String userEmail;
 
     public BMIForm(String email) {
-        this.userEmail = email;
+        super("Kalkulator BMI");
 
-        setTitle("Kalkulator BMI");
-        FormStyler.applyStyle(this);
+        this.userEmail = email;
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -26,52 +25,49 @@ public class BMIForm extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel welcomeLabel = new JLabel("Witaj, " + email + "! Miło Cię widzieć.");
-        FormStyler.arrangeComponent(gbc, 0, 0, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
-
+        applyLabelStyle(welcomeLabel);
+        arrangeComponent(gbc, welcomeLabel, 0, 0, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
         Font defaultFont = welcomeLabel.getFont();
         welcomeLabel.setFont(defaultFont.deriveFont(defaultFont.getStyle(), 20));
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-        FormStyler.styleLabel(welcomeLabel);
         add(welcomeLabel, gbc);
 
         JLabel weightLabel = new JLabel("Waga (kg):");
-        FormStyler.arrangeComponent(gbc, 0, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleLabel(weightLabel);
+        applyLabelStyle(weightLabel);
+        arrangeComponent(gbc, weightLabel, 0, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(weightLabel, gbc);
 
         weightField = new JTextField(20);
-        FormStyler.arrangeComponent(gbc, 1, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        arrangeComponent(gbc, weightField, 1, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(weightField, gbc);
 
         JLabel heightLabel = new JLabel("Wzrost (cm):");
-        FormStyler.arrangeComponent(gbc, 0, 2, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleLabel(heightLabel);
+        applyLabelStyle(heightLabel);
+        arrangeComponent(gbc, heightLabel, 0, 2, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(heightLabel, gbc);
 
         heightField = new JTextField(20);
-        FormStyler.arrangeComponent(gbc, 1, 2, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        arrangeComponent(gbc, heightField, 1, 2, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(heightField, gbc);
 
         calculateButton = new JButton("Oblicz BMI");
-        FormStyler.arrangeComponent(gbc, 0, 3, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleButton(calculateButton);
+        applyButtonStyle(calculateButton);
+        arrangeComponent(gbc, calculateButton, 0, 3, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
         add(calculateButton, gbc);
 
         JButton historyButton = new JButton("Historia BMI");
-        FormStyler.arrangeComponent(gbc, 0, 4, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleButton(historyButton);
+        applyButtonStyle(historyButton);
+        arrangeComponent(gbc, historyButton, 0, 4, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
         add(historyButton, gbc);
 
         logoutButton = new JButton("Wyloguj");
-        FormStyler.arrangeComponent(gbc, 0, 5, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleButton(logoutButton);
+        applyButtonStyle(logoutButton);
+        arrangeComponent(gbc, logoutButton, 0, 5, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
         add(logoutButton, gbc);
 
-
         resultLabel = new JLabel("");
-        FormStyler.arrangeComponent(gbc, 0, 6, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleLabel(resultLabel);
+        applyLabelStyle(resultLabel);
+        arrangeComponent(gbc, resultLabel, 0, 6, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
         add(resultLabel, gbc);
 
         calculateButton.addActionListener(e -> calculateBMI());
@@ -86,7 +82,6 @@ public class BMIForm extends JFrame {
             double bmi = weight / (height * height);
 
             resultLabel.setText("Twoje BMI: " + String.format("%.2f", bmi) + " (" + getBMICategory(bmi) + ")");
-
             DatabaseManager.saveBMIResult(userEmail, weight, height * 100, bmi);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Proszę wprowadzić prawidłowe dane.");

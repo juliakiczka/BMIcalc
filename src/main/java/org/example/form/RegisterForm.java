@@ -1,45 +1,45 @@
 package org.example.form;
 
-import org.example.DatabaseManager;
-import org.example.FormStyler;
+import org.example.form.common.BaseForm;
+import org.example.form.common.DatabaseManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RegisterForm extends JFrame {
+public class RegisterForm extends BaseForm {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton registerButton;
 
     public RegisterForm() {
-        setTitle("Rejestracja");
-        FormStyler.applyStyle(this);
+        super("Rejestracja");
+
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel emailLabel = new JLabel("Email:");
-        FormStyler.arrangeComponent(gbc, 0, 0, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleLabel(emailLabel);
+        applyLabelStyle(emailLabel);  // Stylizacja etykiety
+        arrangeComponent(gbc, emailLabel, 0, 0, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(emailLabel, gbc);
 
         emailField = new JTextField(20);
-        FormStyler.arrangeComponent(gbc, 1, 0, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        arrangeComponent(gbc, emailField, 1, 0, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(emailField, gbc);
 
         JLabel passwordLabel = new JLabel("Hasło:");
-        FormStyler.arrangeComponent(gbc, 0, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleLabel(passwordLabel);
+        applyLabelStyle(passwordLabel);  // Stylizacja etykiety
+        arrangeComponent(gbc, passwordLabel, 0, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(passwordLabel, gbc);
 
         passwordField = new JPasswordField(20);
-        FormStyler.arrangeComponent(gbc, 1, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
+        arrangeComponent(gbc, passwordField, 1, 1, GridBagConstraints.CENTER, 1, 1, GridBagConstraints.HORIZONTAL);
         add(passwordField, gbc);
 
         registerButton = new JButton("Zarejestruj");
-        FormStyler.arrangeComponent(gbc, 0, 2, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
-        FormStyler.styleButton(registerButton);
+        applyButtonStyle(registerButton);
+        arrangeComponent(gbc, registerButton, 0, 2, GridBagConstraints.CENTER, 2, 1, GridBagConstraints.HORIZONTAL);
         add(registerButton, gbc);
 
         registerButton.addActionListener(e -> register());
@@ -56,5 +56,15 @@ public class RegisterForm extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Błąd rejestracji.");
         }
+    }
+
+    private void arrangeComponent(GridBagConstraints gbc, Component component, int gridx, int gridy, int anchor, int gridwidth, int gridheight, int fill) {
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.anchor = anchor;
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+        gbc.fill = fill;
+        add(component, gbc);
     }
 }

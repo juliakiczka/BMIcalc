@@ -1,20 +1,20 @@
 package org.example.form;
 
-import org.example.BMIHistoryEntry;
-import org.example.DatabaseManager;
-import org.example.FormStyler;
+import org.example.form.common.BMIHistoryEntry;
+import org.example.form.common.BaseForm;
+import org.example.form.common.DatabaseManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class BMIHistoryForm extends JFrame {
+public class BMIHistoryForm extends BaseForm {
     private String userEmail;
 
     public BMIHistoryForm(String email) {
+        super("Historia BMI");
+
         this.userEmail = email;
-        setTitle("Historia BMI");
-        FormStyler.applyStyle(this);
         setLayout(new BorderLayout());
 
         List<BMIHistoryEntry> history = DatabaseManager.getBMIHistory(userEmail);
@@ -31,13 +31,13 @@ public class BMIHistoryForm extends JFrame {
         }
 
         JTable historyTable = new JTable(data, columnNames);
-        FormStyler.applyTableStyle(historyTable);
+        applyTableStyle(historyTable);
 
         JScrollPane scrollPane = new JScrollPane(historyTable);
         add(scrollPane, BorderLayout.CENTER);
 
         JButton backButton = new JButton("Powrót");
-        FormStyler.styleButton(backButton);
+        applyButtonStyle(backButton);
         backButton.addActionListener(e -> goBackToBMIForm());
         add(backButton, BorderLayout.SOUTH);
 

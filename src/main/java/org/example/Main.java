@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.form.LoginForm;
+import org.example.form.common.DatabaseManager;
 
 import javax.swing.*;
 

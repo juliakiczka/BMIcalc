@@ -1,20 +1,21 @@
 package org.example.form;
 
-import org.example.DatabaseManager;
-import org.example.FormStyler;
+import org.example.form.common.DatabaseManager;
+import org.example.form.common.BaseForm;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginForm extends JFrame {
+public class LoginForm extends BaseForm {
+
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton, registerButton;
     private JLabel welcomeLabel;
 
     public LoginForm() {
-        setTitle("Logowanie");
-        FormStyler.applyStyle(this);
+        super("Logowanie");
+
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -39,7 +40,7 @@ public class LoginForm extends JFrame {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.EAST;
-        FormStyler.styleLabel(emailLabel);
+        applyLabelStyle(emailLabel);
         add(emailLabel, gbc);
 
         emailField = new JTextField(20);
@@ -52,7 +53,7 @@ public class LoginForm extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.EAST;
-        FormStyler.styleLabel(passwordLabel);
+        applyLabelStyle(passwordLabel);
         add(passwordLabel, gbc);
 
         passwordField = new JPasswordField(20);
@@ -66,7 +67,7 @@ public class LoginForm extends JFrame {
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        FormStyler.styleButton(loginButton);
+        applyButtonStyle(loginButton);
         add(loginButton, gbc);
 
         registerButton = new JButton("Rejestracja");
@@ -74,7 +75,7 @@ public class LoginForm extends JFrame {
         gbc.gridy = 4;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        FormStyler.styleButton(registerButton);
+        applyButtonStyle(registerButton);
         add(registerButton, gbc);
 
         loginButton.addActionListener(e -> login());
